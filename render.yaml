@@ -1,25 +1,14 @@
-# यह फाइल Render पर आपके प्रोजेक्ट को कॉन्फ़िगर करती है
 services:
   - type: web
     name: my-music-bot-free
-    env: python
-    
-    # यह 'starter' प्लान फ्री टियर के लिए है।
-    # ध्यान दें: फ्री टियर पर, अगर 15 मिनट तक कोई ट्रैफिक नहीं होता तो सर्विस स्लीप मोड में चली जाती है।
-    # और अधिकतम 512 MB RAM मिलती है।
+    # अब env को 'docker' पर सेट करें, न कि 'python' पर
+    env: docker
     plan: free
     
-    # यह कमांड ffmpeg को इंस्टॉल करता है, जो PyTgCalls के लिए ज़रूरी है।
-    # उसके बाद, यह requirements.txt से सारी Python लाइब्रेरीज इंस्टॉल करता है।
-    buildCommand: |
-      apt-get update -y && \
-      apt-get install -y ffmpeg && \
-      pip install -r requirements.txt
+    # यह बताता है कि बिल्ड के लिए Dockerfile का उपयोग करें
+    dockerfilePath: Dockerfile
     
-    # बॉट को शुरू करने के लिए कमांड
-    startCommand: python main.py
-    
-    # ये आपके environment variables हैं जिन्हें आपको Render डैशबोर्ड में डालना होगा।
+    # अपनी API कीज़ और टोकन यहाँ डालें
     envVars:
       - key: API_ID
         sync: false
